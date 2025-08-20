@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thamanda District Youth Hike - Mt. Longonot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at center, #1a5490 0%, #0d2a47 70%, #051324 100%);
+      padding: 10px;
+      overflow-x: hidden;
+    }
+    
+    .poster {
+      width: 420px;
+      height: 750px;
+      position: relative;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 
+        0 0 40px rgba(255, 215, 0, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 2px rgba(255, 215, 0, 0.4);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      animation: posterEntrance 1.2s ease-out;
+      background: linear-gradient(145deg, #1e3c72, #2a5298);
+    }
+    
+    .poster:hover {
+      transform: translateY(-8px) rotateX(5deg);
+      box-shadow: 
+        0 0 60px rgba(255, 215, 0, 0.5),
+        0 35px 80px rgba(0, 0, 0, 0.8),
+        inset 0 0 0 3px rgba(255, 215, 0, 0.6);
+    }
+    
+    @keyframes posterEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(50px) rotateY(15deg);
+        filter: blur(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotateY(0deg);
+        filter: blur(0px);
+      }
+    }
+    
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('images/longonot.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.4) contrast(1.2) saturate(1.3);
+      transition: all 0.5s ease;
+    }
+    
+    .poster:hover .background {
+      transform: scale(1.08);
+      filter: brightness(0.3) contrast(1.4) saturate(1.5);
+    }
+    
+    .background.placeholder {
+      background: 
+        linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%),
+        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      background-size: 400% 400%, cover;
+      animation: gradientShift 6s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(180deg, 
+          rgba(0, 0, 0, 0.2) 0%,
+          rgba(0, 30, 60, 0.3) 20%,
+          rgba(0, 0, 0, 0.1) 50%,
+          rgba(30, 60, 120, 0.4) 80%,
+          rgba(0, 0, 0, 0.9) 100%);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      color: white;
+      text-align: center;
+      backdrop-filter: blur(1px);
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    
+    .header {
+      animation: slideInFromTop 1s ease-out 0.3s both;
+      margin-bottom: 15px;
+      flex-shrink: 0;
+    }
+    
+    @keyframes slideInFromTop {
+      0% { opacity: 0; transform: translateY(-40px) scale(0.9); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
+    .district-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #FFD700;
+      margin-bottom: 8px;
+      opacity: 0.95;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+      animation: textGlow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes textGlow {
+      0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); }
+      100% { text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.6); }
+    }
+    
+    .main-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347, #FFD700);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShimmer 3s ease-in-out infinite;
+      text-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.8),
+        0 0 60px rgba(255, 165, 0, 0.6);
+      letter-spacing: 2px;
+    }
+    
+    @keyframes titleShimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #e8f4fd;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+    
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    .mountain-icon {
+      font-size: 35px;
+      margin: 8px 0 15px 0;
+      animation: mountainFloat 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+    }
+    
+    @keyframes mountainFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      33% { transform: translateY(-8px) rotate(1deg); }
+      66% { transform: translateY(-4px) rotate(-1deg); }
+    }
+    
+    .details {
+      background: 
+        linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%),
+        linear-gradient(45deg, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 215, 0, 0.3);
+      border-radius: 20px;
+      padding: 18px 16px;
+      margin: 15px 0;
+      animation: detailsGlow 1s ease-out 0.9s both;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .details::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+      animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    @keyframes detailsGlow {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+        box-shadow: 0 0 0 rgba(255, 215, 0, 0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+      }
+    }
+    
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 13px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .detail-item:hover {
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 8px;
+      padding: 8px 10px;
+      transform: translateX(5px);
+    }
+    
+    .detail-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    .detail-label {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      color: #FFD700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 12px;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+      min-width: 100px;
+    }
+    
+    .detail-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      text-align: right;
+      line-height: 1.3;
+      flex: 1;
+      margin-left: 10px;
+      font-size: 13px;
+      color: #f0f8ff;
+    }
+    
+    .footer {
+      animation: slideInFromBottom 1s ease-out 1.2s both;
+      margin-top: 15px;
+      flex-shrink: 0;
+    }
+    
+    @keyframes slideInFromBottom {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    .contact-info {
+      background: 
+        linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%);
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 12px;
+      box-shadow: 
+        0 8px 25px rgba(255, 107, 107, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-info:hover {
+      transform: scale(1.03);
+      box-shadow: 
+        0 12px 35px rgba(255, 107, 107, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    
+    .contact-info::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: contactRotate 4s linear infinite;
+    }
+    
+    @keyframes contactRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .contact-name {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .contact-role {
+      font-size: 12px;
+      opacity: 0.95;
+      margin-bottom: 6px;
+      color: #f0f8ff;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .contact-phone {
+      font-family: 'Orbitron', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #FFD700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .cta-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 12px 20px;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 
+        0 8px 25px rgba(102, 126, 234, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      animation: ctaPulse 2s infinite;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 
+        0 15px 35px rgba(102, 126, 234, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: ctaShimmer 2s infinite;
+    }
+    
+    @keyframes ctaShimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    @keyframes ctaPulse {
+      0%, 100% { 
+        box-shadow: 
+          0 8px 25px rgba(102, 126, 234, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      }
+      50% { 
+        box-shadow: 
+          0 12px 35px rgba(102, 126, 234, 0.7),
+          inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      }
+    }
+    
+    .cta-secondary {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      font-size: 11px;
+      padding: 10px 16px;
+    }
+    
+    .cta-secondary:hover {
+      box-shadow: 
+        0 15px 35px rgba(245, 87, 108, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+    
+    /* Floating particles effect */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 215, 0, 0.6);
+      border-radius: 50%;
+      animation: float 8s infinite linear;
+    }
+    
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+    .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+    .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+    .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+    .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+    .particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+    .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+        transform: translateY(90vh) scale(1);
+      }
+      90% {
+        opacity: 1;
+        transform: translateY(-10vh) scale(1);
+      }
+      100% {
+        transform: translateY(-20vh) scale(0);
+        opacity: 0;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .poster {
+        width: 350px;
+        height: 650px;
+      }
+      
+      .main-title {
+        font-size: 26px;
+      }
+      
+      .subtitle {
+        font-size: 13px;
+      }
+      
+      .mountain-icon {
+        font-size: 30px;
+        margin: 6px 0 12px 0;
+      }
+      
+      .detail-item {
+        font-size: 11px;
+        margin-bottom: 10px;
+        padding: 6px 0;
+      }
+      
+      .detail-label {
+        font-size: 10px;
+        min-width: 80px;
+      }
+      
+      .detail-value {
+        font-size: 11px;
+      }
+      
+      .contact-name {
+        font-size: 13px;
+      }
+      
+      .contact-phone {
+        font-size: 13px;
+      }
+      
+      .cta {
+        font-size: 10px;
+        padding: 8px 14px;
+      }
+      
+      .cta-secondary {
+        font-size: 9px;
+        padding: 7px 12px;
+      }
+      
+      .details {
+        padding: 14px 12px;
+        margin: 12px 0;
+      }
+      
+      .overlay {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <!-- Background with fallback -->
+    <!-- <div class="background"></div> -->
+<div class="background placeholder" style="background-image: url('images/image.jpg');">
+</div>    
+    <!-- Floating particles -->
+    <div class="particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <div class="overlay">
+      <div class="header">
+        <div class="district-label">Thamanda District</div>
+        <h1 class="main-title">Youth Hike</h1>
+        <div class="subtitle">All Youths Welcome! Conquer Mt. Longonot! 🌋</div>
+        <div class="mountain-icon">⛰️</div>
+      </div>
+      
+      <div class="details">
+        <div class="detail-item">
+          <span class="detail-label">📅 Date</span>
+          <span class="detail-value">Sunday, August 24, 2025</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">⏰ Time</span>
+          <span class="detail-value">Depart 8:30 AM<br>Ngecha Main Stage</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">👥 For</span>
+          <span class="detail-value">Youths (16 years & above)</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">🎯 Activity</span>
+          <span class="detail-value">Hike & Crater Exploration<br>(~6 hours)</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">💰 Cost</span>
+          <span class="detail-value">750 KES<br>(500 Transport + 250 Entry)</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">🎒 Bring</span>
+          <span class="detail-value">Snacks & Water</span>
+        </div>
+      </div>
+      
+      <div class="footer">
+        <div class="contact-info">
+          <div class="contact-name">Diana Nyaata</div>
+          <div class="contact-role">Thamanda District Youth Leader</div>
+          <div class="contact-phone">📞 0714171671</div>
+        </div>
+        
+        <div class="cta-container">
+          <div class="cta">
+            🚀 Join the Adventure! 🚀
+          </div>
+          <div class="cta cta-secondary">
+            ⭐ Tell a Friend to Tell a Friend! ⭐
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
